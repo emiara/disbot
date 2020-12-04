@@ -10020,3 +10020,11 @@ client.on('message', msg => {
 		msg.channel.send(krypter.encrypt(msg.content, 2))
 	}
 })
+
+client.on('message', message => {
+	// If the message is "what is my avatar"
+	if (message.content === 'what is my avatar') {
+	  // Send the user's avatar URL
+	  message.reply(message.author.displayAvatarURL());
+	}
+})
