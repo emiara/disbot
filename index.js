@@ -10097,4 +10097,3 @@ client.on('message', msg => {
 		msg.reply(encrypt(msg.content, 2))
 	}
 })
-client.login('NzgzMzMyMTM3ODU5OTQwMzkz.X8ZM5w.1MaywEQ6YJZM-aETWnwWXaqXizI')
