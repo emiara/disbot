@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const krypter = require("./krypter.js")
 const client = new Discord.Client();
 
 const ordliste = [
@@ -10003,85 +10004,7 @@ const ordliste = [
 	"rønningen",
 	"phoenix"
 ]
-const alph = ["a",
-	"b",
-	"c",
-	"d",
-	"e",
-	"f",
-	"g",
-	"h",
-	"i",
-	"j",
-	"k",
-	"l",
-	"m",
-	"n",
-	"o",
-	"p",
-	"q",
-	"r",
-	"s",
-	"t",
-	"u",
-	"v",
-	"w",
-	"x",
-	"y",
-	"z",
-	"æ",
-	"ø",
-	"å",
-	"A",
-	"B",
-	"C",
-	"D",
-	"E",
-	"F",
-	"G",
-	"H",
-	"I",
-	"J",
-	"K",
-	"L",
-	"M",
-	"N",
-	"O",
-	"P",
-	"Q",
-	"R",
-	"S",
-	"T",
-	"U",
-	"V",
-	"W",
-	"X",
-	"Y",
-	"Z",
-	"Æ",
-	"Ø",
-	"Å",
-	"%",
-	"_",
-	":",
-	",",
-	".",
-	"<",
-	"\"",
-	"\'",
-	" "
 
-]
-const alphLen = alph.length;
-
-function encrypt(text, cipher) {
-	let r = "";
-	text.split("").forEach(c => {
-		x = alph[(alph.indexOf(c) + cipher) % alphLen]
-		r += x;
-	})
-	return r;
-}
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 })
@@ -10094,6 +10017,6 @@ client.on('message', msg => {
 
 client.on('message', msg => {
 	if (msg.content.includes('encrypt')) {
-		msg.reply(encrypt(msg.content, 2))
+		msg.reply(krypter.encrypt(msg.content, 2))
 	}
 })
