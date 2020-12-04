@@ -71,9 +71,15 @@ const alphLen = alph.length;
 
 function encrypt(text, cipher) {
 	let r = "";
+	let counter = 0;
 	text.split("").forEach(c => {
-		x = alph[(alph.indexOf(c) + cipher) % alphLen]
-		r += x;
+		if (counter < 8){
+			counter++
+		}else{
+			x = alph[(alph.indexOf(c) + cipher) % alphLen]
+			r += x;
+		}
+
 	})
 	return r;
 }

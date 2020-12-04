@@ -10016,7 +10016,7 @@ client.on('message', msg => {
 })
 
 client.on('message', msg => {
-	if (msg.content.includes('encrypt')) {
-		msg.reply(krypter.encrypt(msg.content, 2))
+	if (msg.content.includes('encrypt ')) {
+		msg.channel.send(krypter.encrypt(msg.content, 2))
 	}
 })
