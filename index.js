@@ -10,29 +10,29 @@ const {OpusEncoder} = require('@discordjs/opus');
 // Specify 48kHz sampling rate and 2 channel size.
 const encoder = new OpusEncoder(48000, 2);
 
-var connection
 
 client.on('message', async message => {
 	// Join the same voice channel of the author of the message
 	if (message.member.voice.channel) {
-		connection = await message.member.voice.channel.join();
+		const connection = await message.member.voice.channel.join();
+		
+		// Create a dispatcher
+		const dispatcher = connection.play('audio.mp3');
+
+		dispatcher.on('start', () => {
+			console.log('audio.mp3 is now playing!');
+		});
+
+		dispatcher.on('finish', () => {
+			console.log('audio.mp3 has finished playing!');
+		});
+
+		// Always remember to handle errors appropriately!
+		dispatcher.on('error', console.error);
+
 	}
 });
 
-
-// Create a dispatcher
-const dispatcher = connection.play('audio.mp3');
-
-dispatcher.on('start', () => {
-	console.log('audio.mp3 is now playing!');
-});
-
-dispatcher.on('finish', () => {
-	console.log('audio.mp3 has finished playing!');
-});
-
-// Always remember to handle errors appropriately!
-dispatcher.on('error', console.error);
 
 
 client.on('ready', () => {
