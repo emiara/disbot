@@ -2,6 +2,19 @@ const Discord = require("discord.js");
 const krypter = require("./krypter.js")
 const tokenFile = require("./token.js");
 const client = new Discord.Client();
+const fs = require('fs');
+
+var YoutubeMp3Downloader = require("youtube-mp3-downloader");
+
+//Configure YoutubeMp3Downloader with your settings
+var YD = new YoutubeMp3Downloader({
+	"ffmpegPath": "/bin/ffmpeg",        // FFmpeg binary location
+	"outputPath": "audio",    // Output file location (default: the home directory)
+	"youtubeVideoQuality": "highestaudio",  // Desired video quality (default: highestaudio)
+	"queueParallelism": 2,                  // Download parallelism (default: 1)
+	"progressTimeout": 2000,                // Interval in ms for the progress reports (default: 1000)
+	"allowWebm": false                      // Enable download from WebM sources (default: false)
+});
 
 const {OpusEncoder} = require('@discordjs/opus');
 
@@ -15,7 +28,7 @@ client.on('message', async message => {
 	// Join the same voice channel of the author of the message
 	if (message.member.voice.channel) {
 		const connection = await message.member.voice.channel.join();
-		
+
 		// Create a dispatcher
 		const dispatcher = connection.play('audio.mp3');
 
@@ -108,5 +121,25 @@ client.on('message', message => {
 
 console.log(client.users);
 // Log our bot in using the token from https://discord.com/developers/applications
+client.on('message', msg => {
+	if (msg.content.startsWith('!youtube')) {
+		console.log(msg.content.split("="));
+		fs.unlink("audio/*");
+		//Download video and save as MP3 file
+		YD.download(msg.content.split("=")[1]);
+
+		YD.on("finished", function (err, data) {
+			console.log(JSON.stringify(data));
+		});
+
+		YD.on("error", function (error) {
+			console.log(error);
+		});
+
+		YD.on("progress", function (progress) {
+			console.log(JSON.stringify(progress));
+		});
+	}
+})
 client.login(tokenFile.token);
 
