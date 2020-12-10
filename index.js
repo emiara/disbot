@@ -25,6 +25,7 @@ client.on('message', async message => {
 
 		dispatcher.on('finish', () => {
 			console.log('audio.mp3 has finished playing!');
+			connection.disconnect();
 		});
 
 		// Always remember to handle errors appropriately!
