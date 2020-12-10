@@ -14,6 +14,13 @@ const encoder = new OpusEncoder(48000, 2);
 const encoded = encoder.encode(buffer);
 const decoded = encoder.decode(encoded);
 
+client.on('message', async message => {
+	// Join the same voice channel of the author of the message
+	if (message.member.voice.channel) {
+		const connection = await message.member.voice.channel.join();
+	}
+});
+
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 })
