@@ -3,10 +3,21 @@ const krypter = require("./krypter.js")
 const tokenFile = require("./token.js");
 const client = new Discord.Client();
 
+const {OpusEncoder} = require('@discordjs/opus');
+
+
+// Create the encoder.
+// Specify 48kHz sampling rate and 2 channel size.
+const encoder = new OpusEncoder(48000, 2);
+
+// Encode and decode.
+const encoded = encoder.encode(buffer);
+const decoded = encoder.decode(encoded);
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 })
+
 
 client.on('message', msg => {
 	if (msg.content == 'ping') {
