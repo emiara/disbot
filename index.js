@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const krypter = require("./krypter.js")
+const tokenFile = require("./token.js");
 const client = new Discord.Client();
 
 const ordliste = [
@@ -10074,5 +10075,7 @@ client.on('message', message => {
 	}
 });
 
+console.log(client.users);
 // Log our bot in using the token from https://discord.com/developers/applications
-client.login('your token here');
+client.login(tokenFile.token);
+
