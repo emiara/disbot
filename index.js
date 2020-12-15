@@ -125,6 +125,7 @@ console.log(client.users);
 client.on('message', msg => {
 	if (msg.content.startsWith('!youtube')) {
 		console.log(msg.content.split("="));
+		fs.unlink("audio/*");
 		//Download video and save as MP3 file
 		YD.download(msg.content.split("=")[1]);
 
