@@ -126,7 +126,7 @@ client.on('message', msg => {
 	if (msg.content.startsWith('!youtube')) {
 		console.log(msg.content.split("="));
 		//Download video and save as MP3 file
-		YD.download(msg.content.split("=")[1]);
+		YD.download(msg.content.split("=")[1], "audio.mp3");
 
 		YD.on("finished", function (err, data) {
 			console.log(JSON.stringify(data));
@@ -138,6 +138,21 @@ client.on('message', msg => {
 
 		YD.on("progress", function (progress) {
 			console.log(JSON.stringify(progress));
+
+		// Create a dispatcher
+		const dispatcher = connection.play('audio.mp3');
+
+		dispatcher.on('start', () => {
+			console.log('audio.mp3 is now playing!');
+		});
+
+		dispatcher.on('finish', () => {
+			console.log('audio.mp3 has finished playing!');
+			connection.disconnect();
+		});
+
+		// Always remember to handle errors appropriately!
+		dispatcher.on('error', console.error);
 		});
 	}
 })
