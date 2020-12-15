@@ -122,7 +122,7 @@ client.on('message', message => {
 
 console.log(client.users);
 // Log our bot in using the token from https://discord.com/developers/applications
-client.on('message', msg => {
+client.on('message', async msg => {
 	if (msg.content.startsWith('!youtube')) {
 		console.log(msg.content.split("="));
 		//Download video and save as MP3 file
