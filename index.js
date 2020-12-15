@@ -139,7 +139,7 @@ client.on('message', async message => {
 			console.log(JSON.stringify(progress));
 		})
 
-		const connection = await message.member.voice.channel.join();
+		const connection = message.member.voice.channel.join();
 
 		// Create a dispatcher
 		const dispatcher = connection.play('./audio/audio.mp3');
