@@ -139,6 +139,8 @@ client.on('message', msg => {
 		YD.on("progress", function (progress) {
 			console.log(JSON.stringify(progress));
 
+		const connection = await message.member.voice.channel.join();
+
 		// Create a dispatcher
 		const dispatcher = connection.play('audio.mp3');
 
