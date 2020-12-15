@@ -3,8 +3,24 @@ const krypter = require("./krypter.js")
 const tokenFile = require("./token.js");
 const client = new Discord.Client();
 const fs = require('fs');
+const {exec} = require("child_process");
 
 var YoutubeMp3Downloader = require("youtube-mp3-downloader");
+
+function os_func() {
+	this.execCommand = function (cmd, callback) {
+		exec(cmd, (error, stdout, stderr) => {
+			if (error) {
+				console.error(`exec error: ${error}`);
+				return;
+			}
+
+			callback(stdout);
+		});
+	}
+}
+
+var os = new os_func();
 
 //Configure YoutubeMp3Downloader with your settings
 var YD = new YoutubeMp3Downloader({
@@ -17,7 +33,6 @@ var YD = new YoutubeMp3Downloader({
 });
 
 const {OpusEncoder} = require('@discordjs/opus');
-
 
 // Create the encoder.
 // Specify 48kHz sampling rate and 2 channel size.
@@ -126,25 +141,26 @@ client.on('message', async message => {
 		console.log(message.content.split("="));
 		//Download video and save as MP3 file
 		YD.download(message.content.split("=")[1], "audio.mp3");
-		var msg = message
 		YD.on("finished", async function (err, data) {
 			console.log(JSON.stringify(data));
-			const connection = await msg.member.voice.channel.join();
+			os.execCommand("rm audio/* && mpg123 -w audio/audio.wav audio/audio.mp3 && sox audio/audio.wav audio/audio_rev.wav reverse && rm audio/audio.mp3 && ffmpeg -i audio/audio_rev.wav audio/audio_rev.mp3", async function (returnValue) {
+				const connection = await message.member.voice.channel.join();
 
-			// Create a dispatcher
-			const dispatcher = connection.play('./audio/audio.mp3');
-	
-			dispatcher.on('start', () => {
-				console.log('audio.mp3 is now playing!');
+				// Create a dispatcher
+				const dispatcher = connection.play('./audio/audio_rev.mp3');
+
+				dispatcher.on('start', () => {
+					console.log('audio.mp3 is now playing!');
+				});
+
+				dispatcher.on('finish', () => {
+					console.log('audio.mp3 has finished playing!');
+					connection.disconnect();
+				});
+
+				// Always remember to handle errors appropriately!
+				dispatcher.on('error', console.error);
 			});
-	
-			dispatcher.on('finish', () => {
-				console.log('audio.mp3 has finished playing!');
-				connection.disconnect();
-			});
-	
-			// Always remember to handle errors appropriately!
-			dispatcher.on('error', console.error);
 		});
 
 		YD.on("error", function (error) {
@@ -155,7 +171,7 @@ client.on('message', async message => {
 			console.log(JSON.stringify(progress));
 		})
 
-	
+
 	}
 })
 client.login(tokenFile.token);
