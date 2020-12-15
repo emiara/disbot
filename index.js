@@ -24,29 +24,28 @@ const {OpusEncoder} = require('@discordjs/opus');
 const encoder = new OpusEncoder(48000, 2);
 
 
-// client.on('message', async message => {
+client.on('message', async message => {
 // 	// Join the same voice channel of the author of the message
-// 	if (message.content.toLowerCase().includes("youtube.com")){
-// 		if (message.member.voice.channel) {
-// 			const connection = await message.member.voice.channel.join();
+if (message.member.voice.channel) {
+	const connection = await message.member.voice.channel.join();
 
-// 			// Create a dispatcher
-// 			const dispatcher = connection.play('audio.mp3');
+	// Create a dispatcher
+	const dispatcher = connection.play('./audio/audio.mp3');
 
-// 			dispatcher.on('start', () => {
-// 				console.log('audio.mp3 is now playing!');
-// 			});
+	dispatcher.on('start', () => {
+		console.log('audio.mp3 is now playing!');
+	});
 
-// 			dispatcher.on('finish', () => {
-// 				console.log('audio.mp3 has finished playing!');
-// 				connection.disconnect();
-// 			});
+	dispatcher.on('finish', () => {
+		console.log('audio.mp3 has finished playing!');
+		connection.disconnect();
+	});
 
-// 			// Always remember to handle errors appropriately!
-// 			dispatcher.on('error', console.error);
+	// Always remember to handle errors appropriately!
+	dispatcher.on('error', console.error);
 
-// 		}}
-// });
+}}
+);
 
 
 
@@ -122,7 +121,7 @@ client.on('message', message => {
 
 console.log(client.users);
 // Log our bot in using the token from https://discord.com/developers/applications
-client.on('message', async msg => {
+client.on('message',  msg => {
 	if (msg.content.startsWith('!youtube')) {
 		console.log(msg.content.split("="));
 		//Download video and save as MP3 file
@@ -139,7 +138,7 @@ client.on('message', async msg => {
 		YD.on("progress", function (progress) {
 			console.log(JSON.stringify(progress));
 
-		const connection = msg.member.voice.channel.join();
+		const connection =  msg.member.voice.channel.join();
 
 		// Create a dispatcher
 		const dispatcher = connection.play('./audio/audio.mp3');
