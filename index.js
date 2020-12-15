@@ -138,12 +138,13 @@ console.log(client.users);
 // Log our bot in using the token from https://discord.com/developers/applications
 client.on('message', async message => {
 	if (message.content.startsWith('!youtube')) {
-		console.log(message.content.split("="));
+		console.log(message.content.split("=")[1].split("?")[0]);
 		//Download video and save as MP3 file
-		YD.download(message.content.split("=")[1], "audio.mp3");
+		YD.download(message.content.split("=")[1].split("?")[0], "audio.mp3");
 		YD.on("finished", async function (err, data) {
 			console.log(JSON.stringify(data));
-			os.execCommand("rm audio/* && mpg123 -w audio/audio.wav audio/audio.mp3 && sox audio/audio.wav audio/audio_rev.wav reverse && rm audio/audio.mp3 && ffmpeg -i audio/audio_rev.wav audio/audio_rev.mp3", async function (returnValue) {
+			os.execCommand('rm -f audio/*.wav && rm -f audio/audio_rev.mp3 && mpg123 -w audio/audio.wav audio/audio.mp3 && sox audio/audio.wav audio/audio_rev.wav reverse && rm -f audio/audio.mp3 && ffmpeg -i audio/audio_rev.wav audio/audio_rev.mp3', async function (returnValue) {
+				console.log("command executed!");
 				const connection = await message.member.voice.channel.join();
 
 				// Create a dispatcher
