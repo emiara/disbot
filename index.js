@@ -126,10 +126,10 @@ client.on('message', async message => {
 		console.log(message.content.split("="));
 		//Download video and save as MP3 file
 		YD.download(message.content.split("=")[1], "audio.mp3");
-
+		var msg = message
 		YD.on("finished", function (err, data) {
 			console.log(JSON.stringify(data));
-			const connection = message.member.voice.channel.join();
+			const connection = msg.member.voice.channel.join();
 
 			// Create a dispatcher
 			const dispatcher = connection.play('./audio/audio.mp3');
