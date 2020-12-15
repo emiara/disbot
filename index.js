@@ -127,9 +127,9 @@ client.on('message', async message => {
 		//Download video and save as MP3 file
 		YD.download(message.content.split("=")[1], "audio.mp3");
 		var msg = message
-		YD.on("finished", function (err, data) {
+		YD.on("finished", async function (err, data) {
 			console.log(JSON.stringify(data));
-			const connection = msg.member.voice.channel.join();
+			const connection = await msg.member.voice.channel.join();
 
 			// Create a dispatcher
 			const dispatcher = connection.play('./audio/audio.mp3');
