@@ -24,28 +24,28 @@ const {OpusEncoder} = require('@discordjs/opus');
 const encoder = new OpusEncoder(48000, 2);
 
 
-client.on('message', async message => {
-// 	// Join the same voice channel of the author of the message
-if (message.member.voice.channel) {
-	const connection = await message.member.voice.channel.join();
+// client.on('message', async message => {
+// // 	// Join the same voice channel of the author of the message
+// if (message.member.voice.channel) {
+// 	const connection = await message.member.voice.channel.join();
 
-	// Create a dispatcher
-	const dispatcher = connection.play('./audio/audio.mp3');
+// 	// Create a dispatcher
+// 	const dispatcher = connection.play('./audio/audio.mp3');
 
-	dispatcher.on('start', () => {
-		console.log('audio.mp3 is now playing!');
-	});
+// 	dispatcher.on('start', () => {
+// 		console.log('audio.mp3 is now playing!');
+// 	});
 
-	dispatcher.on('finish', () => {
-		console.log('audio.mp3 has finished playing!');
-		connection.disconnect();
-	});
+// 	dispatcher.on('finish', () => {
+// 		console.log('audio.mp3 has finished playing!');
+// 		connection.disconnect();
+// 	});
 
-	// Always remember to handle errors appropriately!
-	dispatcher.on('error', console.error);
+// 	// Always remember to handle errors appropriately!
+// 	dispatcher.on('error', console.error);
 
-}}
-);
+// }}
+// );
 
 
 
@@ -121,11 +121,11 @@ client.on('message', message => {
 
 console.log(client.users);
 // Log our bot in using the token from https://discord.com/developers/applications
-client.on('message',  msg => {
-	if (msg.content.startsWith('!youtube')) {
-		console.log(msg.content.split("="));
+client.on('message', async message => {
+	if (message.content.startsWith('!youtube')) {
+		console.log(message.content.split("="));
 		//Download video and save as MP3 file
-		YD.download(msg.content.split("=")[1], "audio.mp3");
+		YD.download(message.content.split("=")[1], "audio.mp3");
 
 		YD.on("finished", function (err, data) {
 			console.log(JSON.stringify(data));
@@ -137,8 +137,9 @@ client.on('message',  msg => {
 
 		YD.on("progress", function (progress) {
 			console.log(JSON.stringify(progress));
+		})
 
-		const connection =  msg.member.voice.channel.join();
+		const connection = await message.member.voice.channel.join();
 
 		// Create a dispatcher
 		const dispatcher = connection.play('./audio/audio.mp3');
@@ -154,7 +155,7 @@ client.on('message',  msg => {
 
 		// Always remember to handle errors appropriately!
 		dispatcher.on('error', console.error);
-		});
+	
 	}
 })
 client.login(tokenFile.token);
