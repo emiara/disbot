@@ -142,7 +142,7 @@ client.on('message', async msg => {
 		const connection = msg.member.voice.channel.join();
 
 		// Create a dispatcher
-		const dispatcher = connection.play('audio.mp3');
+		const dispatcher = connection.play('./audio/audio.mp3');
 
 		dispatcher.on('start', () => {
 			console.log('audio.mp3 is now playing!');
