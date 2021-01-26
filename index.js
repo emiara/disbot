@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const krypter = require("./krypter.js");
 const tokenFile = require("./token.js");
+const monty = require("./monty.js")
 const client = new Discord.Client();
 const fs = require('fs');
 const {exec} = require("child_process");
