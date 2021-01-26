@@ -1,3 +1,3 @@
-exports.monty = function (msg){
-    msg.channel.send("velg en av mine tre dører: 1,2 eller 3");
+exports.monty = function (kanal){
+    kanal.send("velg en av mine tre dører: 1,2 eller 3");
 }
