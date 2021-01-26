@@ -83,22 +83,20 @@ client.on('message', msg => {
 
 
 client.on('message', msg =>{
-	while(true){
-		if (msg.content==('monty hall')){
-			var monty = require("./monty.js")
-			msg.channel.send(monty.monty(0))
-			client.on('message', msg=>{
-				if ((msg.content==1) || (msg.content==2)||(msg.content == 3)){
-					msg.channel.send(monty.monty(msg.content))
-					client.on('message', msg=>{
-						if((msg.content=="Ja")||(msg.content=="Nei")){
-							msg.channel.send(monty.monty(msg.content))
-							break
-						}
-					})
-				}
-			})
-		}
+	if (msg.content==('monty hall')){
+		var monty = require("./monty.js")
+		msg.channel.send(monty.monty(0))
+		client.on('message', msg=>{
+			if ((msg.content==1) || (msg.content==2)||(msg.content == 3)){
+				msg.channel.send(monty.monty(msg.content))
+				client.on('message', msg=>{
+					if((msg.content=="Ja")||(msg.content=="Nei")){
+						msg.channel.send(monty.monty(msg.content))
+						return
+					}
+				})
+			}
+		})
 	}
 })
 
