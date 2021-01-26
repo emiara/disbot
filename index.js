@@ -82,6 +82,13 @@ client.on('message', msg => {
 	}
 })
 
+
+client.on('message', msg =>{
+	if (msg.content==('monty hall')){
+		monty.monty()
+	}
+})
+
 client.on('message', message => {
 	// If the message is "what is my avatar"
 	if (message.content === 'what is my avatar') {
