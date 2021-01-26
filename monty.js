@@ -31,7 +31,7 @@ exports.monty = function (tall){
             }
         }
         else{
-            return("du svarte noe uforståelig, du fpr en geit")
+            return("du svarte noe uforståelig, du får en geit")
         }
     }
 }

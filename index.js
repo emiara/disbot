@@ -91,13 +91,15 @@ client.on('message', msg =>{
 				msg.channel.send(monty.monty(msg.content))
 				client.on('message', msg=>{
 					msg.channel.send(monty.monty(msg.content))
-					return 0
+					return
 				})
+			return
 			}
-		return 0
+		return
 		})
+	return
 	}
-	return 0
+return
 })
 
 client.on('message', message => {
