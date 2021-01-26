@@ -1,7 +1,7 @@
 exports.monty = function (tall){
     if (tall == 0){
         return("velg en av mine tre dører: 1,2 eller 3");
-    }else if (!tall.isNaN()){
+    }else if (!isNaN(tall)){
         var riktig = Math.floor(Math.random()*3)
         var array = [0, 0, 0]
         array[riktig]=1
