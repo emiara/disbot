@@ -89,12 +89,9 @@ client.on('message', msg =>{
 		client.on('message', msg=>{
 			if ((msg.content==1) || (msg.content==2)||(msg.content == 3)){
 				msg.channel.send(monty.monty(msg.content))
-				if (msg.content!=""){
-					client.on('message', msg=>{
-						msg.channel.send(monty.monty(msg.content))
-						return
-					})
-				}
+				client.on('message', msg=>{
+					if(msg.content!=null){msg.channel.send(monty.monty(msg.content))}
+				})
 			}
 		})
 	}
