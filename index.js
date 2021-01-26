@@ -90,7 +90,10 @@ client.on('message', msg =>{
 			if ((msg.content==1) || (msg.content==2)||(msg.content == 3)){
 				msg.channel.send(monty.monty(msg.content))
 				client.on('message', msg=>{
-					if(msg.content!=""){msg.channel.send(monty.monty(msg.content))}
+					if((msg.content=="Ja")||(msg.content=="Nei")){
+						msg.channel.send(monty.monty(msg.content))
+						return
+					}
 				})
 			}
 		})
