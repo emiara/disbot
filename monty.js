@@ -10,7 +10,7 @@ exports.monty = function (tall){
         var temp = [0,0,0]
         temp[tall-1]=1
         temp[pos]=1
-        var pos2 = array.findIndex(forste_0)
+        var pos2 = temp.findIndex(forste_0)
         
         return (`Interessant, du valgte ${tall}. Bak ${pos+1} er det tomt. Har du lyst å bytte til ${pos2+1}? Ja/Nei`)
     }
