@@ -85,7 +85,7 @@ client.on('message', msg => {
 client.on('message', msg =>{
 	var monty = require("./monty.js")
 	if (msg.content==('monty hall')){
-		monty.monty()
+		msg.channel.send(monty.monty())
 	}
 })
 
