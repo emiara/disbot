@@ -5,7 +5,8 @@ exports.monty = function (tall){
         var riktig = Math.floor(Math.random()*3)
         var array = [0, 0, 0]
         array[riktig]=1
-        var forste_0 = (element)=> (element == 0) &&(element != tall-1)
+        array[tall-1]=1
+        var forste_0 = (element)=> (element == 0)
         var pos = array.findIndex(forste_0)
         var temp = [0,0,0]
         temp[tall-1]=1
