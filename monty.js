@@ -23,7 +23,7 @@ exports.monty = function (tall){
                 return("Synd, du tapte, kålhode")
             }
         }
-        if (tall == "Nei"){
+        else if (tall == "Nei"){
             if (her==riktig){
                 return("Gratulerer du vant en apekatt")
             }else{
